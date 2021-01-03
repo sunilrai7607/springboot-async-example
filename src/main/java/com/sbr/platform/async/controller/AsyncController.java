@@ -25,16 +25,13 @@ public class AsyncController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<CompletableFuture<List<UserEntity>>> findAllUser(){
+    public ResponseEntity<CompletableFuture<List<UserEntity>>> findAllUser() {
         asyncService.populate();
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/users")
-    public CompletableFuture<ResponseEntity> createUsers(){
+    public CompletableFuture<ResponseEntity> createUsers() {
         return asyncService.findAll().thenApply(ResponseEntity::ok);
     }
-
-
-
 }

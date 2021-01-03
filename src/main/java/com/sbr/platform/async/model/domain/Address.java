@@ -24,7 +24,7 @@ public class Address implements Serializable {
 
     private String timeZone;
 
-    public Address find(String id){
+    public Address find(String id) {
         return this;
     }
 }

@@ -33,10 +33,10 @@ public class AsyncService {
     }
 
     @Async
-    public CompletableFuture<List<UserEntity>> populate(){
+    public CompletableFuture<List<UserEntity>> populate() {
         long startTime = System.currentTimeMillis();
         List<UserEntity> userEntity = populateAddress(populateUsers());
-        log.info("Saving all the users size: {} , thread : {} ",userEntity.size(),Thread.currentThread().getName());
+        log.info("Saving all the users size: {} , thread : {} ", userEntity.size(), Thread.currentThread().getName());
         userEntity = userEntityRepository.saveAll(userEntity);
         long endTime = System.currentTimeMillis();
         log.info("Total Time : {} ", endTime - startTime);
@@ -44,13 +44,13 @@ public class AsyncService {
     }
 
     @Async
-    public CompletableFuture<List<UserEntity>> findAll(){
+    public CompletableFuture<List<UserEntity>> findAll() {
         List<UserEntity> userEntity = userEntityRepository.findAll();
-        log.info("Saving all the users size: {} , thread : {} ",userEntity.size(),Thread.currentThread().getName());
+        log.info("Saving all the users size: {} , thread : {} ", userEntity.size(), Thread.currentThread().getName());
         return CompletableFuture.completedFuture(userEntity);
     }
 
-    public List<UserEntity>  populateUsers() {
+    public List<UserEntity> populateUsers() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             List<CustomUser> customUsersArray = Arrays.asList(objectMapper.readValue(ResourceUtils.getFile(
@@ -62,11 +62,12 @@ public class AsyncService {
         return null;
 
     }
+
     public List<UserEntity> populateAddress(List<UserEntity> customUsers) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            List<Address>  addresses = Arrays.asList(objectMapper.readValue(ResourceUtils.getFile(
-                    "classpath:data/user-address.json"),Address[].class));
+            List<Address> addresses = Arrays.asList(objectMapper.readValue(ResourceUtils.getFile(
+                    "classpath:data/user-address.json"), Address[].class));
             Map<String, Address> addressMap = addresses.stream().collect(Collectors.toMap(Address::getId, address -> address));
             return customUsers.parallelStream()
                     .map(
