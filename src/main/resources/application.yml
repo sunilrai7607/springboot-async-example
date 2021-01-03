@@ -1,0 +1,22 @@
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+
+#  kafka:
+#    producer:
+#      bootstrap-servers: localhost:9092
+#      # Key produce message
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      # custom event class to produce message
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#    consumer:
+#      bootstrap-servers: localhost:9092
+#      group-id: events-group # requires a unique string that identifies the consumer group to which this consumer belongs
+#      auto-offset-reset: earliest #determines what to do when there is no initial offset in Kafka or if the current offset no longer exists on the server
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer #requires a deserializer class for keys
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer # requires a deserializer class for values.
+#      properties:
+#        spring:
+#          json:
+#            trusted:
+#              packages: com.sbr.platform.services.model.entity.Event
